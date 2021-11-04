@@ -1,0 +1,60 @@
+DEFINE_COMMAND(push, 1, 1, {
+    if (p_currentCommand->is_ram)
+    {
+       if (p_currentCommand->is_register)
+          stack_push(&STACK, RAM[ (size_t)REGISTERS[ (size_t)p_currentCommand->argument ] ]);
+       else
+          stack_push(&STACK, RAM[ (size_t)p_currentCommand->argument ]);
+    }
+    else
+    {
+       if (p_currentCommand->is_register)
+          stack_push(&STACK, REGISTERS[ (size_t)p_currentCommand->argument ]);
+       else
+          stack_push(&STACK, p_currentCommand->argument);
+    }
+})
+
+
+DEFINE_COMMAND(pop, 2, 1, {
+   if (p_currentCommand->is_ram)
+   {
+      if (p_currentCommand->is_register)
+         stack_pop(&STACK, RAM + (size_t)REGISTERS[ (size_t)p_currentCommand->argument ]);
+      else
+         stack_pop(&STACK, RAM + (size_t)p_currentCommand->argument);
+   }
+   else
+   {
+      if (p_currentCommand->is_register)
+         stack_pop(&STACK, REGISTERS + (size_t)p_currentCommand->argument);
+      else
+       kill
+   }
+})
+
+
+DEFINE_COMMAND(sum, 3, 1, {
+    stack_pop(&STACK, DARK_REGISTERS);
+    stack_pop(&STACK, DARK_REGISTERS + 1);
+    stack_push(&STACK, DARK_REGISTERS[0] + DARK_REGISTERS[1]);
+})
+
+
+DEFINE_COMMAND(mul, 4, 1, {
+    stack_pop(&STACK, DARK_REGISTERS);
+    stack_pop(&STACK, DARK_REGISTERS + 1);
+    stack_push(&STACK, DARK_REGISTERS[0] * DARK_REGISTERS[1]);
+})
+
+
+DEFINE_COMMAND(in, 5, 0, {
+   scanf("%lf", DARK_REGISTERS);
+   stack_push(&STACK, DARK_REGISTERS[0]);
+})
+
+
+DEFINE_COMMAND(show, 6, 0, {
+    stack_pop(&STACK, DARK_REGISTERS);
+    printf("%lg\n", DARK_REGISTERS[0]);
+})

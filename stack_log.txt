@@ -8,17 +8,17 @@ Limits:  STK_MIN_CAPACITY  = 2   STK_MAX_CAPACITY  = 9223372036854775808
 |----------------------------------------------------------------------------
 |  CALLER   |  ARGUMENT              |  LINE   |  FILENAME
 |-----------|------------------------|---------|-----------------------------
-$  init     |  2                     |  127    |  P:\processor\cpu\cpu.cpp
-+  push     |  10                    |  12     |  P:/processor/cpu/commands
-+  push     |  20                    |  12     |  P:/processor/cpu/commands
--  pop      |  0x419940              |  61     |  P:\processor\cpu\cpu.cpp
--  pop      |  0x419948              |  61     |  P:\processor\cpu\cpu.cpp
-+  push     |  20                    |  42     |  P:\processor\cpu\cpu.cpp
-+  push     |  10                    |  42     |  P:\processor\cpu\cpu.cpp
+$  init     |  2                     |  74     |  P:\processor\cpu\cpu.cpp
++  push     |  10                    |  54     |  P:/processor/cpu/commands_system
++  push     |  20                    |  54     |  P:/processor/cpu/commands_system
+-  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
+-  pop      |  0x419948              |  34     |  P:/processor/cpu/commands_system
++  push     |  20                    |  16     |  P:/processor/cpu/commands_system
++  push     |  10                    |  16     |  P:/processor/cpu/commands_system
 -  pop      |  0x419920              |  7      |  P:/processor/cpu/commands
 -  pop      |  0x419928              |  7      |  P:/processor/cpu/commands
 +  push     |  10                    |  7      |  P:/processor/cpu/commands
 +  push     |  20                    |  7      |  P:/processor/cpu/commands
--  pop      |  0x419920              |  22     |  P:/processor/cpu/commands
--  pop      |  0x419920              |  22     |  P:/processor/cpu/commands
-#  destroy  |  -                     |  134    |  P:\processor\cpu\cpu.cpp
+-  pop      |  0x419920              |  60     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  60     |  P:/processor/cpu/commands_system
+#  destroy  |  -                     |  81     |  P:\processor\cpu\cpu.cpp

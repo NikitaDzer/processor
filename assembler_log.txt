@@ -1,10 +1,10 @@
-Time: 21:55:46
+Time: 22:6:50
 ========================================
 in         (null)
-21         0          ram: 0 register: 0
+5          0          ram: 0 register: 0
 ----------------------------------------
 in         (null)
-21         0          ram: 0 register: 0
+5          0          ram: 0 register: 0
 ----------------------------------------
 pop        rax
 2          0          ram: 0 register: 1
@@ -22,8 +22,8 @@ swap       (null)
 20         0          ram: 0 register: 0
 ----------------------------------------
 show       (null)
-23         0          ram: 0 register: 0
+6          0          ram: 0 register: 0
 ----------------------------------------
 show       (null)
-23         0          ram: 0 register: 0
+6          0          ram: 0 register: 0
 ----------------------------------------

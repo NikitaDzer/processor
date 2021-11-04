@@ -27,60 +27,7 @@ static void process_commands(const Command *const commands, const size_t command
    {
       switch ((size_t)p_currentCommand->key)
       {
-         case CommandKey::push:
-         {
-            if (p_currentCommand->is_ram)
-            {
-               if (p_currentCommand->is_register)
-                  stack_push(&STACK, RAM[ (size_t)REGISTERS[ (size_t)p_currentCommand->argument ] ]);
-               else
-                  stack_push(&STACK, RAM[ (size_t)p_currentCommand->argument ]);
-            }
-            else
-            {
-               if (p_currentCommand->is_register)
-                  stack_push(&STACK, REGISTERS[ (size_t)p_currentCommand->argument ]);
-               else
-                  stack_push(&STACK, p_currentCommand->argument);
-            }
-            break;
-         }
-         
-         case CommandKey::pop:
-         {
-            if (p_currentCommand->is_ram)
-            {
-               if (p_currentCommand->is_register)
-                  stack_pop(&STACK, RAM + (size_t)REGISTERS[ (size_t)p_currentCommand->argument ]);
-               else
-                  stack_pop(&STACK, RAM + (size_t)p_currentCommand->argument);
-            }
-            else
-            {
-               if (p_currentCommand->is_register)
-                  stack_pop(&STACK, REGISTERS + (size_t)p_currentCommand->argument);
-               else
-                kill
-            }
-            break;
-         }
-         
-         case CommandKey::sum:
-         {
-            stack_pop(&STACK, DARK_REGISTERS);
-            stack_pop(&STACK, DARK_REGISTERS + 1);
-            stack_push(&STACK, DARK_REGISTERS[0] + DARK_REGISTERS[1]);
-            break;
-         }
-         
-         case CommandKey::mul:
-         {
-            stack_pop(&STACK, DARK_REGISTERS);
-            stack_pop(&STACK, DARK_REGISTERS + 1);
-            stack_push(&STACK, DARK_REGISTERS[0] * DARK_REGISTERS[1]);
-            break;
-         }
-
+         #include "./commands_system"
          #include "./commands"
    
          default:

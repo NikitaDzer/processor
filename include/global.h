@@ -31,11 +31,7 @@ struct Command
 
 enum CommandKey
 {
-   push = 1,
-   pop  = 2,
-   sum  = 3,
-   mul  = 4,
-
+   #include "../cpu/commands_system"
    #include "../cpu/commands"
 };
 
