@@ -1,16 +1,16 @@
 push 100
 push 200
 
-pop  rax
+pop  r9
 pop  rbx
 
 push 1000
-push 2000
+push 200.0
 
-pop[ rax ]
+pop[ r9 ]
 pop[ rbx]
 
-push[rax ]
-push [ rbx]
+push[r9 ]
+push [ rbx ]
 
 sum
