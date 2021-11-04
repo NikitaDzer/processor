@@ -7,12 +7,12 @@
 
 #include "global.h"
 
-struct LineLexemes
+struct CommandLexemes
 {
    char  command_name[64];
    char *argument_string;
 };
 
-size_t lexer(const char *const source, const size_t file_size, LineLexemes **p_lines_lexemes);
+size_t lex(const char *const source, const size_t file_size, CommandLexemes **p_commands_lexemes);
 
 #endif //PROCESSOR_LEXER_H

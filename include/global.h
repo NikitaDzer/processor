@@ -12,6 +12,10 @@
 
 typedef int_fast8_t error_t;
 
+const size_t DARK_REGISTERS_NUMBER = 2;
+const size_t REGISTERS_NUMBER      = 16;
+const size_t RAM_SIZE              = 2048;
+
 #define dead(pointer)                        \
         if ((pointer) == nullptr)            \
             do {                             \

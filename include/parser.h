@@ -11,10 +11,11 @@
 struct Command
 {
    double key;
+   double is_register;
+   double is_ram;
    double argument;
-   bool   has_argument;
 };
 
-void parse(const LineLexemes *const lines_lexemes, const size_t lines_lexemes_number, Command **p_commands);
+void parse(const CommandLexemes *const commands_lexemes, const size_t commands_number, Command **p_commands);
 
 #endif //PROCESSOR_PARSER_H
