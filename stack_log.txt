@@ -4,22 +4,21 @@ Limits:  STK_MIN_CAPACITY  = 2   STK_MAX_CAPACITY  = 9223372036854775808
          STK_MIN_CAPACITY_ = 2   STK_MAX_CAPACITY_ = 9223372036854775808
 *============================================================================
 | Stack index:    0
-| Stack address:  0x41c9c0
+| Stack address:  0x41d9c0
 |----------------------------------------------------------------------------
 |  CALLER   |  ARGUMENT              |  LINE   |  FILENAME
 |-----------|------------------------|---------|-----------------------------
-$  init     |  2                     |  104    |  P:\processor\cpu\cpu.cpp
-+  push     |  100                   |  34     |  P:\processor\cpu\cpu.cpp
-+  push     |  200                   |  34     |  P:\processor\cpu\cpu.cpp
--  pop      |  0x418988              |  49     |  P:\processor\cpu\cpu.cpp
--  pop      |  0x418948              |  49     |  P:\processor\cpu\cpu.cpp
-+  push     |  1000                  |  34     |  P:\processor\cpu\cpu.cpp
-+  push     |  200                   |  34     |  P:\processor\cpu\cpu.cpp
--  pop      |  0x419000              |  42     |  P:\processor\cpu\cpu.cpp
--  pop      |  0x418ce0              |  42     |  P:\processor\cpu\cpu.cpp
-+  push     |  200                   |  25     |  P:\processor\cpu\cpu.cpp
-+  push     |  1000                  |  25     |  P:\processor\cpu\cpu.cpp
--  pop      |  0x418920              |  56     |  P:\processor\cpu\cpu.cpp
--  pop      |  0x418928              |  57     |  P:\processor\cpu\cpu.cpp
-+  push     |  1200                  |  59     |  P:\processor\cpu\cpu.cpp
-#  destroy  |  -                     |  110    |  P:\processor\cpu\cpu.cpp
+$  init     |  2                     |  127    |  P:\processor\cpu\cpu.cpp
++  push     |  10                    |  12     |  P:/processor/cpu/commands
++  push     |  20                    |  12     |  P:/processor/cpu/commands
+-  pop      |  0x419940              |  61     |  P:\processor\cpu\cpu.cpp
+-  pop      |  0x419948              |  61     |  P:\processor\cpu\cpu.cpp
++  push     |  20                    |  42     |  P:\processor\cpu\cpu.cpp
++  push     |  10                    |  42     |  P:\processor\cpu\cpu.cpp
+-  pop      |  0x419920              |  7      |  P:/processor/cpu/commands
+-  pop      |  0x419928              |  7      |  P:/processor/cpu/commands
++  push     |  10                    |  7      |  P:/processor/cpu/commands
++  push     |  20                    |  7      |  P:/processor/cpu/commands
+-  pop      |  0x419920              |  22     |  P:/processor/cpu/commands
+-  pop      |  0x419920              |  22     |  P:/processor/cpu/commands
+#  destroy  |  -                     |  133    |  P:\processor\cpu\cpu.cpp

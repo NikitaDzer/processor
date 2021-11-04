@@ -9,7 +9,7 @@
 
 struct CommandLexemes
 {
-   char  command_name[64];
+   char  command_name[COMMAND_NAME_MAX_SIZE];
    char *argument_string;
 };
 

@@ -10,12 +10,12 @@
 
 static inline bool is_command_name_char(const char ch)
 {
-   return isalnum(ch) || ch == '$' || ch == '_';
+   return isalnum(ch) || ch == ':' || ch == '$' || ch == '_';
 }
 
 static inline bool is_command_argument_char(const char ch)
 {
-   return isalnum(ch)  ||  ch == ' ' || ch == '.' || ch == '[' || ch == ']';
+   return isalnum(ch) || ch == '-' ||  ch == ' ' || ch == '.' || ch == '[' || ch == ']';
 }
 
 static inline const char* skip_gap(const char *const start)

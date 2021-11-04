@@ -1,35 +1,29 @@
-Time: 18:58:10
+Time: 21:43:33
 ======================================
-push       100
-1          100        ram: 0 register: 0
+in         (null)
+21         0          ram: 0 register: 0
 ----------------------------------------
-push       200
-1          200        ram: 0 register: 0
+in         (null)
+21         0          ram: 0 register: 0
 ----------------------------------------
-pop        r9
-2          9          ram: 0 register: 1
+pop        rax
+2          0          ram: 0 register: 1
 ----------------------------------------
 pop        rbx
 2          1          ram: 0 register: 1
 ----------------------------------------
-push       1000
-1          1000       ram: 0 register: 0
+push       rax
+1          0          ram: 0 register: 1
 ----------------------------------------
-push       200.0
-1          200        ram: 0 register: 0
+push       rbx
+1          1          ram: 0 register: 1
 ----------------------------------------
-pop        [ r9 ]
-2          9          ram: 1 register: 1
+swap       (null)
+20         0          ram: 0 register: 0
 ----------------------------------------
-pop        [ rbx]
-2          1          ram: 1 register: 1
+show       (null)
+23         0          ram: 0 register: 0
 ----------------------------------------
-push       [r9 ]
-1          9          ram: 1 register: 1
-----------------------------------------
-push       [ rbx ]
-1          1          ram: 1 register: 1
-----------------------------------------
-sum        (null)
-3          0          ram: 0 register: 0
+show       (null)
+23         0          ram: 0 register: 0
 ----------------------------------------

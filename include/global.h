@@ -10,11 +10,34 @@
 #include <cstdlib>
 #include <cstdio>
 
+#define DEFINE_COMMAND(cmd_name, cmd_key, arguments_number, code)  \
+            cmd_name = cmd_key,
+
 typedef int_fast8_t error_t;
 
 const size_t DARK_REGISTERS_NUMBER = 2;
 const size_t REGISTERS_NUMBER      = 16;
 const size_t RAM_SIZE              = 2048;
+
+const size_t COMMAND_NAME_MAX_SIZE = 64;
+
+struct Command
+{
+   double key;
+   double is_register;
+   double is_ram;
+   double argument;
+};
+
+enum CommandKey
+{
+   push = 1,
+   pop  = 2,
+   sum  = 3,
+   mul  = 4,
+
+   #include "../cpu/commands"
+};
 
 #define dead(pointer)                        \
         if ((pointer) == nullptr)            \
