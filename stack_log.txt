@@ -21,4 +21,4 @@ $  init     |  2                     |  127    |  P:\processor\cpu\cpu.cpp
 +  push     |  20                    |  7      |  P:/processor/cpu/commands
 -  pop      |  0x419920              |  22     |  P:/processor/cpu/commands
 -  pop      |  0x419920              |  22     |  P:/processor/cpu/commands
-#  destroy  |  -                     |  133    |  P:\processor\cpu\cpu.cpp
+#  destroy  |  -                     |  134    |  P:\processor\cpu\cpu.cpp

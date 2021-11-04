@@ -130,5 +130,6 @@ void cpu(const char *const binaryFile_path)
    
    stack_info(&STACK);
    
+   free((void *)commands);
    stack_destroy(&STACK);
 }

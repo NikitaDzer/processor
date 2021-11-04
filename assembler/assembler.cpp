@@ -24,6 +24,17 @@ static size_t get_file_size(FILE* const file)
    return file_size;
 }
 
+static void free_mem()
+{
+   for (size_t i = 0; i < commands_number; i++)
+   {
+      free(commands_lexemes[i].argument_string);
+   }
+   
+   free(commands_lexemes);
+   free(commands);
+}
+
 static void assembler_log()
 {
    FILE *assembler_logfile = fopen(assembler_logfile_path, "w");
@@ -33,7 +44,7 @@ static void assembler_log()
    
    fprintf(assembler_logfile,
            "Time: %d:%d:%d\n"
-           "======================================\n",
+           "========================================\n",
            date->tm_hour, date->tm_min, date->tm_sec);
    
    for (size_t i = 0; i < commands_number; i++)
@@ -76,7 +87,6 @@ void assembly(const char *const inputFile_path, const char *const outputFile_pat
    assembler_log();
    
    free(inputFile_content);
-   free(commands_lexemes);
-   free(commands);
+   free_mem();
    fclose(outputFile);
 }
