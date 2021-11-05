@@ -25,8 +25,8 @@ const size_t LABEL_NAME_MAX_SIZE   = 64;
 struct Command
 {
    double key;
-   double is_register;
-   double is_ram;
+   bool is_register;
+   bool is_ram;
    double argument;
 };
 
