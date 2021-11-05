@@ -13,13 +13,13 @@
                break;                                                     \
             }
 
-
 static double DARK_REGISTERS[DARK_REGISTERS_NUMBER] = {0};
 static double REGISTERS[REGISTERS_NUMBER]           = {0};
 static double RAM[RAM_SIZE]                         = {0};
+static Stack  CALLSTACK                             = {0};
 static Stack  STACK                                 = {0};
 
-static void process_commands(const Command *const commands, const size_t commands_number)
+static int process_commands(const Command *const commands, const size_t commands_number)
 {
    const Command *p_currentCommand = commands;
    
@@ -40,45 +40,52 @@ static void process_commands(const Command *const commands, const size_t command
       
       p_currentCommand += 1;
    }
+   
+   return 0;
 }
 
-static const Command* get_commands(const char *const binaryFile_path, size_t *const p_commands_number)
+static const Command* get_commands(const char *const binfile_path, size_t *const p_commands_number)
 {
-   dead(binaryFile_path);
+   dead(binfile_path);
    dead(p_commands_number);
    
-   FILE          *binaryFile      = nullptr;
+   FILE          *binfile         = nullptr;
    size_t         commands_number = 0;
    const Command *commands        = nullptr;
    
-   binaryFile = fopen(binaryFile_path, "rb");
+   binfile = fopen(binfile_path, "rb");
    
-   dead(binaryFile);
+   dead(binfile);
    
-   fread(&commands_number, sizeof(size_t), 1, binaryFile);
+   fread(&commands_number, sizeof(size_t), 1, binfile);
    
    commands = (Command *)calloc(commands_number, sizeof(Command));
    
-   fread((void *)commands, sizeof(Command), commands_number, binaryFile);
-   fclose(binaryFile);
+   fread((void *)commands, sizeof(Command), commands_number, binfile);
+   fclose(binfile);
    
    *p_commands_number = commands_number;
    
    return commands;
 }
 
-void cpu(const char *const binaryFile_path)
+void cpu(const char *const binfile_path)
 {
    size_t               commands_number  = 0;
-   const Command *const commands         = get_commands(binaryFile_path, &commands_number);
+   const Command *const commands         = get_commands(binfile_path, &commands_number);
    
    stack_debug(&STACK);
+   stack_debug(&CALLSTACK);
+   
    stack_init(&STACK, 2);
+   stack_init(&CALLSTACK, 2);
    
    process_commands(commands, commands_number);
    
-   stack_info(&STACK);
+//   stack_info(&STACK);
+//   stack_info(&CALLSTACK);
    
    free((void *)commands);
    stack_destroy(&STACK);
+   stack_destroy(&CALLSTACK);
 }

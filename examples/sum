@@ -1,0 +1,27 @@
+multin
+
+pop  rax
+
+push rax
+push 0
+
+je end
+
+push 0
+
+loop:
+    sum
+
+    push rbx
+    push 1
+    sum
+    pop  rbx
+    push rbx
+    push rax
+
+    ja loop
+
+out
+
+end:
+hlt

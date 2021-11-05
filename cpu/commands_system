@@ -59,10 +59,12 @@ DEFINE_COMMAND(out, 6, 0, {
     printf("%lg\n", DARK_REGISTERS[0]);
 })
 
+
 DEFINE_COMMAND(jmp, 7, -1, {
     p_currentCommand = commands + (size_t)p_currentCommand->argument;
     continue;
 })
+
 
 DEFINE_COMMAND(je, 8, -1, {
     stack_pop(&STACK, DARK_REGISTERS);
@@ -73,4 +75,37 @@ DEFINE_COMMAND(je, 8, -1, {
         p_currentCommand = commands + (size_t)p_currentCommand->argument;
         continue;
     }
+})
+
+
+DEFINE_COMMAND(ja, 9, -1, {
+    stack_pop(&STACK, DARK_REGISTERS);
+    stack_pop(&STACK, DARK_REGISTERS + 1);
+
+    if (DARK_REGISTERS[0] > DARK_REGISTERS[1])
+    {
+        p_currentCommand = commands + (size_t)p_currentCommand->argument;
+        continue;
+    }
+})
+
+
+DEFINE_COMMAND(hlt, 10, 0, {
+    return 0;
+})
+
+
+DEFINE_COMMAND(call, 11, -1, {
+    stack_push(&CALLSTACK, (double)(p_currentCommand + 1 - commands));
+
+    p_currentCommand = commands + (size_t)p_currentCommand->argument;
+    continue;
+})
+
+
+DEFINE_COMMAND(ret, 12, -2, {
+    stack_pop(&CALLSTACK, DARK_REGISTERS);
+
+    p_currentCommand = commands + (size_t)DARK_REGISTERS[0];
+    continue;
 })

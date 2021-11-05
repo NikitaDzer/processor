@@ -15,7 +15,7 @@ static inline bool is_command_name_char(const char ch)
 
 static inline bool is_command_argument_char(const char ch)
 {
-   return isalnum(ch) || ch == '-' ||  ch == ' ' || ch == '.' || ch == '[' || ch == ']';
+   return isalnum(ch) || ch == '-' ||  ch == ' ' || ch == '.' || ch == '_' || ch == '[' || ch == ']';
 }
 
 static inline const char* skip_gap(const char *const start)
@@ -97,20 +97,20 @@ size_t lex(const char *const source, const size_t file_size, CommandLexemes **p_
    
    dead(commands_lexemes);
    
-   char const *source_iterator = source;
+   char const *asmcode_iterator = source;
    
    while (true)
    {
-      if (*source_iterator == '\0')
+      if (*asmcode_iterator == '\0')
          break;
       
-      if (is_command_name_char(*source_iterator))
+      if (is_command_name_char(*asmcode_iterator))
       {
-         source_iterator = write_command_lexemes(source_iterator, commands_lexemes_iterator);
+         asmcode_iterator = write_command_lexemes(asmcode_iterator, commands_lexemes_iterator);
          commands_lexemes_iterator += 1;
       }
       else
-         source_iterator += 1;
+         asmcode_iterator += 1;
    }
    
    *p_commands_lexemes = commands_lexemes;

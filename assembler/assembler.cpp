@@ -13,10 +13,10 @@ static Command        *commands                = nullptr;
 static size_t          commands_lexemes_number = 0;
 static size_t          commands_number         = 0;
 
-static size_t get_file_size(FILE* const file)
+static long get_file_size(FILE* const file)
 {
    long initialPosition = ftell(file);
-   size_t file_size = 0;
+   long file_size       = 0;
    
    fseek(file, 0, SEEK_END);
    file_size = ftell(file);
@@ -25,23 +25,11 @@ static size_t get_file_size(FILE* const file)
    return file_size;
 }
 
-static void free_mem()
-{
-   for (size_t i = 0; i < commands_number; i++)
-   {
-      free(commands_lexemes[i].argument_string);
-   }
-   
-   free(commands_lexemes);
-   free(commands);
-}
-
 static void assembler_log()
 {
-   FILE *assembler_logfile = fopen(assembler_logfile_path, "w");
-   
-   const time_t    seconds = time(nullptr);
-   const tm *const date    = localtime(&seconds);
+   const time_t        seconds           = time(nullptr);
+   const tm     *const date              = localtime(&seconds);
+   FILE         *const assembler_logfile = fopen(assembler_logfile_path, "w");
    
    fprintf(assembler_logfile,
            "Time: %d:%d:%d\n"
@@ -64,34 +52,50 @@ static void assembler_log()
    fclose(assembler_logfile);
 }
 
-void assembly(const char *const inputFile_path, const char *const outputFile_path)
+static char* get_asmcode(const char asmfile_path[], long *const p_asmcode_size)
 {
-   dead(inputFile_path);
+   FILE *asmfile = nullptr;
+   char *asmcode = nullptr;
    
-//   atexit(assembler_log);
+   asmfile        = fopen(asmfile_path, "r");
+  *p_asmcode_size = get_file_size(asmfile);
+   asmcode        = (char *)calloc(*p_asmcode_size, sizeof(char));
    
-   FILE         *const inputFile      = fopen(inputFile_path, "r");
-   const size_t        inputFile_size = get_file_size(inputFile);
+   fread(asmcode, sizeof(char), *p_asmcode_size, asmfile);
+   fclose(asmfile);
    
-   char *const inputFile_content = (char *)calloc(inputFile_size, sizeof(char));
+   return asmcode;
+}
+
+static void write_binfile(const char binfile_path[])
+{
+   FILE *const binfile = fopen(binfile_path, "wb");
    
-   fread(inputFile_content, sizeof(char), inputFile_size, inputFile);
-   fclose(inputFile);
+   fwrite(&commands_number, sizeof(size_t), 1, binfile);
+   fwrite(commands, sizeof(Command), commands_number, binfile);
    
-   commands_lexemes_number = lex(inputFile_content, inputFile_size, &commands_lexemes);
+   fclose(binfile);
+}
+
+void assembly(const char *const asmfile_path, const char *const binfile_path)
+{
+   dead(asmfile_path);
+   dead(binfile_path);
+
+   long        asmcode_size = 0;
+   char *const asmcode      = get_asmcode(asmfile_path, &asmcode_size);
+   
+   commands_lexemes_number = lex(asmcode, asmcode_size, &commands_lexemes);
    commands_number         = parse(commands_lexemes, commands_lexemes_number, &commands);
    
-   FILE *const outputFile = fopen(outputFile_path, "wb");
-   
-   fwrite(&commands_number, sizeof(size_t), 1, outputFile);
-   for (size_t i = 0; i < commands_number; i++)
-   {
-      fwrite(commands + i, sizeof(Command), 1, outputFile);
-   }
+   write_binfile(binfile_path);
    
    assembler_log();
    
-   free_mem();
-   free(inputFile_content);
-   fclose(outputFile);
+   for (size_t i = 0; i < commands_number; i++)
+      free(commands_lexemes[i].argument_string);
+   
+   free(commands_lexemes);
+   free(commands);
+   free(asmcode);
 }

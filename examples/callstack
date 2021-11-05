@@ -1,0 +1,16 @@
+push 10
+call print
+out
+
+push 20
+jmp end
+
+print:
+    out
+    push 15
+    ret
+
+end:
+out
+
+hlt

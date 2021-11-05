@@ -6,11 +6,11 @@
 
 int main()
 {
-   const char inputFile_path[]  = "../asscode";
-   const char outputFile_path[] = "../binary";
+   const char asmfile_path[]  = "../examples/factorial";
+   const char binfile_path[] = "../binary";
    
-   assembly(inputFile_path, outputFile_path);
-   cpu(outputFile_path);
+   assembly(asmfile_path, binfile_path);
+   cpu(binfile_path);
    
    return 0;
 }

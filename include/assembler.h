@@ -7,6 +7,6 @@
 
 const char assembler_logfile_path[] = "../assembler_log.txt";
 
-void assembly(const char *const inputFile_path, const char *const outputFile_path);
+void assembly(const char *const asmfile_path, const char *const binfile_path);
 
 #endif //PROCESSOR_ASSEMBLER_H

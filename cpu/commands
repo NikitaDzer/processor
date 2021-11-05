@@ -6,7 +6,59 @@ DEFINE_COMMAND(swap, 20, 0, {
     stack_push(&STACK, DARK_REGISTERS[1]);
 })
 
-DEFINE_COMMAND(mulin, 21, 0, {
+
+DEFINE_COMMAND(multin, 21, 0, {
+    size_t counter = 0;
+
     while (scanf("%lf", DARK_REGISTERS))
+    {
         stack_push(&STACK, DARK_REGISTERS[0]);
+        counter += 1;
+    }
+
+    stack_push(&STACK, counter);
+})
+
+
+DEFINE_COMMAND(cmpa, 22, 1, {
+    stack_pop(&STACK, DARK_REGISTERS);
+
+    if (p_currentCommand->is_ram)
+    {
+       if (p_currentCommand->is_register)
+          DARK_REGISTERS[1] = RAM[ (size_t)REGISTERS[ (size_t)p_currentCommand->argument ] ];
+       else
+          DARK_REGISTERS[1] = RAM[ (size_t)p_currentCommand->argument ];
+    }
+    else
+    {
+       if (p_currentCommand->is_register)
+          DARK_REGISTERS[1] = REGISTERS[ (size_t)p_currentCommand->argument ];
+       else
+          DARK_REGISTERS[1] = p_currentCommand->argument;
+    }
+
+    stack_push(&STACK, DARK_REGISTERS[0] > DARK_REGISTERS[1]);
+})
+
+
+DEFINE_COMMAND(cmpe, 23, 1, {
+    stack_pop(&STACK, DARK_REGISTERS);
+
+    if (p_currentCommand->is_ram)
+    {
+       if (p_currentCommand->is_register)
+          DARK_REGISTERS[1] = RAM[ (size_t)REGISTERS[ (size_t)p_currentCommand->argument ] ];
+       else
+          DARK_REGISTERS[1] = RAM[ (size_t)p_currentCommand->argument ];
+    }
+    else
+    {
+       if (p_currentCommand->is_register)
+          DARK_REGISTERS[1] = REGISTERS[ (size_t)p_currentCommand->argument ];
+       else
+          DARK_REGISTERS[1] = p_currentCommand->argument;
+    }
+
+    stack_push(&STACK, DARK_REGISTERS[0] == DARK_REGISTERS[1]);
 })

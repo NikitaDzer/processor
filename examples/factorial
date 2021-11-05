@@ -1,0 +1,32 @@
+in
+
+pop  rax
+
+push 1
+pop  rbx
+
+push 1
+call factorial
+out
+hlt
+
+factorial:
+    push rax
+    push rbx
+    je   exit
+
+    push rbx
+    push 1
+    sum
+    pop  rbx
+
+    push rbx
+
+    call factorial
+    mul
+
+    exit:
+    ret
+
+end:
+hlt
