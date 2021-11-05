@@ -34,14 +34,14 @@ DEFINE_COMMAND(pop, 2, 1, {
 })
 
 
-DEFINE_COMMAND(sum, 3, 1, {
+DEFINE_COMMAND(sum, 3, 0, {
     stack_pop(&STACK, DARK_REGISTERS);
     stack_pop(&STACK, DARK_REGISTERS + 1);
     stack_push(&STACK, DARK_REGISTERS[0] + DARK_REGISTERS[1]);
 })
 
 
-DEFINE_COMMAND(mul, 4, 1, {
+DEFINE_COMMAND(mul, 4, 0, {
     stack_pop(&STACK, DARK_REGISTERS);
     stack_pop(&STACK, DARK_REGISTERS + 1);
     stack_push(&STACK, DARK_REGISTERS[0] * DARK_REGISTERS[1]);
@@ -54,7 +54,23 @@ DEFINE_COMMAND(in, 5, 0, {
 })
 
 
-DEFINE_COMMAND(show, 6, 0, {
+DEFINE_COMMAND(out, 6, 0, {
     stack_pop(&STACK, DARK_REGISTERS);
     printf("%lg\n", DARK_REGISTERS[0]);
+})
+
+DEFINE_COMMAND(jmp, 7, -1, {
+    p_currentCommand = commands + (size_t)p_currentCommand->argument;
+    continue;
+})
+
+DEFINE_COMMAND(je, 8, -1, {
+    stack_pop(&STACK, DARK_REGISTERS);
+    stack_pop(&STACK, DARK_REGISTERS + 1);
+
+    if (DARK_REGISTERS[0] == DARK_REGISTERS[1])
+    {
+        p_currentCommand = commands + (size_t)p_currentCommand->argument;
+        continue;
+    }
 })

@@ -20,6 +20,7 @@ const size_t REGISTERS_NUMBER      = 16;
 const size_t RAM_SIZE              = 2048;
 
 const size_t COMMAND_NAME_MAX_SIZE = 64;
+const size_t LABEL_NAME_MAX_SIZE   = 64;
 
 struct Command
 {

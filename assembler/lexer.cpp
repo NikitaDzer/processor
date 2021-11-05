@@ -94,7 +94,6 @@ size_t lex(const char *const source, const size_t file_size, CommandLexemes **p_
    
    CommandLexemes  *commands_lexemes          = (CommandLexemes *)calloc(file_size / 2, sizeof(CommandLexemes));
    CommandLexemes  *commands_lexemes_iterator = commands_lexemes;
-   size_t commands_lexemes_counter            = 0;
    
    dead(commands_lexemes);
    
@@ -108,9 +107,7 @@ size_t lex(const char *const source, const size_t file_size, CommandLexemes **p_
       if (is_command_name_char(*source_iterator))
       {
          source_iterator = write_command_lexemes(source_iterator, commands_lexemes_iterator);
-   
          commands_lexemes_iterator += 1;
-         commands_lexemes_counter  += 1;
       }
       else
          source_iterator += 1;
@@ -118,5 +115,5 @@ size_t lex(const char *const source, const size_t file_size, CommandLexemes **p_
    
    *p_commands_lexemes = commands_lexemes;
    
-   return commands_lexemes_counter;
+   return commands_lexemes_iterator - commands_lexemes;
 }

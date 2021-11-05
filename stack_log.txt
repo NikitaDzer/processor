@@ -1,5 +1,5 @@
 Protection:  STK_ANTI_FOOL_PROTECT  STK_CANARY_PROTECT  STK_HASH_PROTECT  
-Element specifier:  lg
+Element specifier:  %lg
 Limits:  STK_MIN_CAPACITY  = 2   STK_MAX_CAPACITY  = 9223372036854775808
          STK_MIN_CAPACITY_ = 2   STK_MAX_CAPACITY_ = 9223372036854775808
 *============================================================================
@@ -8,17 +8,73 @@ Limits:  STK_MIN_CAPACITY  = 2   STK_MAX_CAPACITY  = 9223372036854775808
 |----------------------------------------------------------------------------
 |  CALLER   |  ARGUMENT              |  LINE   |  FILENAME
 |-----------|------------------------|---------|-----------------------------
-$  init     |  2                     |  74     |  P:\processor\cpu\cpu.cpp
+$  init     |  2                     |  76     |  P:\processor\cpu\cpu.cpp
++  push     |  5                     |  54     |  P:/processor/cpu/commands_system
 +  push     |  10                    |  54     |  P:/processor/cpu/commands_system
-+  push     |  20                    |  54     |  P:/processor/cpu/commands_system
--  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
 -  pop      |  0x419948              |  34     |  P:/processor/cpu/commands_system
-+  push     |  20                    |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
++  push     |  5                     |  16     |  P:/processor/cpu/commands_system
 +  push     |  10                    |  16     |  P:/processor/cpu/commands_system
--  pop      |  0x419920              |  7      |  P:/processor/cpu/commands
--  pop      |  0x419928              |  7      |  P:/processor/cpu/commands
-+  push     |  10                    |  7      |  P:/processor/cpu/commands
-+  push     |  20                    |  7      |  P:/processor/cpu/commands
+-  pop      |  0x419920              |  76     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  76     |  P:/processor/cpu/commands_system
++  push     |  5                     |  16     |  P:/processor/cpu/commands_system
 -  pop      |  0x419920              |  60     |  P:/processor/cpu/commands_system
++  push     |  5                     |  16     |  P:/processor/cpu/commands_system
++  push     |  1                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  41     |  P:/processor/cpu/commands_system
++  push     |  6                     |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
++  push     |  6                     |  16     |  P:/processor/cpu/commands_system
++  push     |  10                    |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  76     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  76     |  P:/processor/cpu/commands_system
++  push     |  6                     |  16     |  P:/processor/cpu/commands_system
 -  pop      |  0x419920              |  60     |  P:/processor/cpu/commands_system
-#  destroy  |  -                     |  81     |  P:\processor\cpu\cpu.cpp
++  push     |  6                     |  16     |  P:/processor/cpu/commands_system
++  push     |  1                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  41     |  P:/processor/cpu/commands_system
++  push     |  7                     |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
++  push     |  7                     |  16     |  P:/processor/cpu/commands_system
++  push     |  10                    |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  76     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  76     |  P:/processor/cpu/commands_system
++  push     |  7                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  60     |  P:/processor/cpu/commands_system
++  push     |  7                     |  16     |  P:/processor/cpu/commands_system
++  push     |  1                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  41     |  P:/processor/cpu/commands_system
++  push     |  8                     |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
++  push     |  8                     |  16     |  P:/processor/cpu/commands_system
++  push     |  10                    |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  76     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  76     |  P:/processor/cpu/commands_system
++  push     |  8                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  60     |  P:/processor/cpu/commands_system
++  push     |  8                     |  16     |  P:/processor/cpu/commands_system
++  push     |  1                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  41     |  P:/processor/cpu/commands_system
++  push     |  9                     |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
++  push     |  9                     |  16     |  P:/processor/cpu/commands_system
++  push     |  10                    |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  76     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  76     |  P:/processor/cpu/commands_system
++  push     |  9                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  60     |  P:/processor/cpu/commands_system
++  push     |  9                     |  16     |  P:/processor/cpu/commands_system
++  push     |  1                     |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  41     |  P:/processor/cpu/commands_system
++  push     |  10                    |  41     |  P:/processor/cpu/commands_system
+-  pop      |  0x419940              |  34     |  P:/processor/cpu/commands_system
++  push     |  10                    |  16     |  P:/processor/cpu/commands_system
++  push     |  10                    |  16     |  P:/processor/cpu/commands_system
+-  pop      |  0x419920              |  76     |  P:/processor/cpu/commands_system
+-  pop      |  0x419928              |  76     |  P:/processor/cpu/commands_system
+#  destroy  |  -                     |  83     |  P:\processor\cpu\cpu.cpp

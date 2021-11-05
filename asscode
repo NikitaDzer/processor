@@ -1,13 +1,22 @@
 in
 in
 
-pop rax
-pop rbx
+pop  rbx
+pop  rax
 
 push rax
 push rbx
 
-swap
+loop:
+    je end
+    push rax
+    out
+    push rax
+    push 1
+    sum
+    pop  rax
+    push rax
+    push rbx
+    jmp loop
 
-show
-show
+end:

@@ -25,6 +25,8 @@ static void process_commands(const Command *const commands, const size_t command
    
    while (p_currentCommand < commands + commands_number)
    {
+//      printf("key:%d ", p_currentCommand->key);
+      
       switch ((size_t)p_currentCommand->key)
       {
          #include "./commands_system"
@@ -46,7 +48,7 @@ static const Command* get_commands(const char *const binaryFile_path, size_t *co
    dead(p_commands_number);
    
    FILE          *binaryFile      = nullptr;
-   size_t         commands_number =  0;
+   size_t         commands_number = 0;
    const Command *commands        = nullptr;
    
    binaryFile = fopen(binaryFile_path, "rb");
@@ -56,8 +58,8 @@ static const Command* get_commands(const char *const binaryFile_path, size_t *co
    fread(&commands_number, sizeof(size_t), 1, binaryFile);
    
    commands = (Command *)calloc(commands_number, sizeof(Command));
-   fread((void *)commands, sizeof(Command), commands_number, binaryFile);
    
+   fread((void *)commands, sizeof(Command), commands_number, binaryFile);
    fclose(binaryFile);
    
    *p_commands_number = commands_number;

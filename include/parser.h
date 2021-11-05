@@ -8,6 +8,6 @@
 #include "global.h"
 #include "lexer.h"
 
-void parse(const CommandLexemes *const commands_lexemes, const size_t commands_number, Command **p_commands);
+size_t parse(CommandLexemes *const commands_lexemes, const size_t commands_lexemes_number, Command **const p_commands);
 
 #endif //PROCESSOR_PARSER_H
