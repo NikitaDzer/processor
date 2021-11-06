@@ -40,6 +40,7 @@ static const char* write_command_name(const char *const start, CommandLexemes *c
       iterator += 1;
    }
    
+   
    return iterator;
 }
 

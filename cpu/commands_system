@@ -2,16 +2,16 @@ DEFINE_COMMAND(push, 1, 1, {
     if (p_currentCommand->is_ram)
     {
        if (p_currentCommand->is_register)
-          stack_push(&STACK, RAM[ (size_t)REGISTERS[ (size_t)p_currentCommand->argument ] ]);
+          stack_push(&p_cpu->STACK, p_cpu->RAM[ (size_t)p_cpu->REGISTERS[ (size_t)p_currentCommand->argument ] ]);
        else
-          stack_push(&STACK, RAM[ (size_t)p_currentCommand->argument ]);
+          stack_push(&p_cpu->STACK, p_cpu->RAM[ (size_t)p_currentCommand->argument ]);
     }
     else
     {
        if (p_currentCommand->is_register)
-          stack_push(&STACK, REGISTERS[ (size_t)p_currentCommand->argument ]);
+          stack_push(&p_cpu->STACK, p_cpu->REGISTERS[ (size_t)p_currentCommand->argument ]);
        else
-          stack_push(&STACK, p_currentCommand->argument);
+          stack_push(&p_cpu->STACK, p_currentCommand->argument);
     }
 })
 
@@ -20,14 +20,14 @@ DEFINE_COMMAND(pop, 2, 1, {
    if (p_currentCommand->is_ram)
    {
       if (p_currentCommand->is_register)
-         stack_pop(&STACK, RAM + (size_t)REGISTERS[ (size_t)p_currentCommand->argument ]);
+         stack_pop(&p_cpu->STACK, p_cpu->RAM + (size_t)p_cpu->REGISTERS[ (size_t)p_currentCommand->argument ]);
       else
-         stack_pop(&STACK, RAM + (size_t)p_currentCommand->argument);
+         stack_pop(&p_cpu->STACK, p_cpu->RAM + (size_t)p_currentCommand->argument);
    }
    else
    {
       if (p_currentCommand->is_register)
-         stack_pop(&STACK, REGISTERS + (size_t)p_currentCommand->argument);
+         stack_pop(&p_cpu->STACK, p_cpu->REGISTERS + (size_t)p_currentCommand->argument);
       else
        kill
    }
@@ -35,28 +35,28 @@ DEFINE_COMMAND(pop, 2, 1, {
 
 
 DEFINE_COMMAND(sum, 3, 0, {
-    stack_pop(&STACK, DARK_REGISTERS);
-    stack_pop(&STACK, DARK_REGISTERS + 1);
-    stack_push(&STACK, DARK_REGISTERS[0] + DARK_REGISTERS[1]);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS + 1);
+    stack_push(&p_cpu->STACK, p_cpu->DARK_REGISTERS[0] + p_cpu->DARK_REGISTERS[1]);
 })
 
 
 DEFINE_COMMAND(mul, 4, 0, {
-    stack_pop(&STACK, DARK_REGISTERS);
-    stack_pop(&STACK, DARK_REGISTERS + 1);
-    stack_push(&STACK, DARK_REGISTERS[0] * DARK_REGISTERS[1]);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS + 1);
+    stack_push(&p_cpu->STACK, p_cpu->DARK_REGISTERS[0] * p_cpu->DARK_REGISTERS[1]);
 })
 
 
 DEFINE_COMMAND(in, 5, 0, {
-   scanf("%lf", DARK_REGISTERS);
-   stack_push(&STACK, DARK_REGISTERS[0]);
+   scanf("%lf", p_cpu->DARK_REGISTERS);
+   stack_push(&p_cpu->STACK, p_cpu->DARK_REGISTERS[0]);
 })
 
 
 DEFINE_COMMAND(out, 6, 0, {
-    stack_pop(&STACK, DARK_REGISTERS);
-    printf("%lg\n", DARK_REGISTERS[0]);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+    printf("%lg\n", p_cpu->DARK_REGISTERS[0]);
 })
 
 
@@ -67,10 +67,10 @@ DEFINE_COMMAND(jmp, 7, -1, {
 
 
 DEFINE_COMMAND(je, 8, -1, {
-    stack_pop(&STACK, DARK_REGISTERS);
-    stack_pop(&STACK, DARK_REGISTERS + 1);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS + 1);
 
-    if (DARK_REGISTERS[0] == DARK_REGISTERS[1])
+    if (p_cpu->DARK_REGISTERS[0] == p_cpu->DARK_REGISTERS[1])
     {
         p_currentCommand = commands + (size_t)p_currentCommand->argument;
         continue;
@@ -79,10 +79,10 @@ DEFINE_COMMAND(je, 8, -1, {
 
 
 DEFINE_COMMAND(ja, 9, -1, {
-    stack_pop(&STACK, DARK_REGISTERS);
-    stack_pop(&STACK, DARK_REGISTERS + 1);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS + 1);
 
-    if (DARK_REGISTERS[0] > DARK_REGISTERS[1])
+    if (p_cpu->DARK_REGISTERS[0] > p_cpu->DARK_REGISTERS[1])
     {
         p_currentCommand = commands + (size_t)p_currentCommand->argument;
         continue;
@@ -96,7 +96,7 @@ DEFINE_COMMAND(hlt, 10, 0, {
 
 
 DEFINE_COMMAND(call, 11, -1, {
-    stack_push(&CALLSTACK, (double)(p_currentCommand + 1 - commands));
+    stack_push(&p_cpu->CALLSTACK, (double)(p_currentCommand + 1 - commands));
 
     p_currentCommand = commands + (size_t)p_currentCommand->argument;
     continue;
@@ -104,8 +104,31 @@ DEFINE_COMMAND(call, 11, -1, {
 
 
 DEFINE_COMMAND(ret, 12, -2, {
-    stack_pop(&CALLSTACK, DARK_REGISTERS);
+    stack_pop(&p_cpu->CALLSTACK, p_cpu->DARK_REGISTERS);
 
-    p_currentCommand = commands + (size_t)DARK_REGISTERS[0];
+    p_currentCommand = commands + (size_t)p_cpu->DARK_REGISTERS[0];
     continue;
+})
+
+
+DEFINE_COMMAND(sqrt, 13, 0, {
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+
+    stack_push(&p_cpu->STACK, sqrt(p_cpu->DARK_REGISTERS[0]));
+})
+
+
+DEFINE_COMMAND(sub, 14, 0, {
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS + 1);
+
+    stack_push(&p_cpu->STACK, p_cpu->DARK_REGISTERS[0] - p_cpu->DARK_REGISTERS[1]);
+})
+
+
+DEFINE_COMMAND(div, 15, 0, {
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS + 1);
+
+    stack_push(&p_cpu->STACK, p_cpu->DARK_REGISTERS[0] / p_cpu->DARK_REGISTERS[1]);
 })

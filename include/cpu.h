@@ -7,6 +7,6 @@
 
 #include "global.h"
 
-void cpu(const char *const binfile_path);
+void processor(const char *const binfile_path);
 
 #endif //PROCESSOR_CPU_H

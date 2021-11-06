@@ -3,31 +3,59 @@
 //
 
 #include <cstring>
+#include <cmath>
 #include "../include/cpu.h"
 #include "stack/include/stack.h"
 
 #define DEFINE_COMMAND(cmd_name, cmd_key, arguments_number, code)         \
-            case cmd_key:                                                 \
+            case COMMAND_##cmd_name:                                      \
             {                                                             \
                code                                                       \
                break;                                                     \
             }
 
-static double DARK_REGISTERS[DARK_REGISTERS_NUMBER] = {0};
-static double REGISTERS[REGISTERS_NUMBER]           = {0};
-static double RAM[RAM_SIZE]                         = {0};
-static Stack  CALLSTACK                             = {0};
-static Stack  STACK                                 = {0};
-
-static int process_commands(const Command *const commands, const size_t commands_number)
+struct CPU
 {
+   double *DARK_REGISTERS;
+   double *REGISTERS;
+   double *RAM;
+   char   *VRAM;
+   Stack   STACK;
+   Stack   CALLSTACK;
+};
+
+static void get_commands(const char *const binfile_path,
+                         Command **const p_commands, size_t *const p_commands_number)
+{
+   dead(binfile_path);
+   dead(p_commands);
+   dead(p_commands_number);
+   
+   FILE *binfile = fopen(binfile_path, "rb");
+   dead(binfile);
+   
+   control_fread(p_commands_number, sizeof(size_t), 1, binfile);
+   
+   *p_commands = (Command *)calloc(*p_commands_number, sizeof(Command));
+   dead(*p_commands);
+   
+   control_fread(*p_commands, sizeof(Command), *p_commands_number, binfile);
+   
+   if (fclose(binfile) == EOF)
+      kill
+}
+
+static int process_commands(CPU *const p_cpu, const Command *const commands, const size_t commands_number)
+{
+   dead(commands);
+   
    const Command *p_currentCommand = commands;
    
    while (p_currentCommand < commands + commands_number)
    {
 //      printf("key:%d ", p_currentCommand->key);
       
-      switch ((size_t)p_currentCommand->key)
+      switch (p_currentCommand->key)
       {
          #include "./commands_system"
          #include "./commands"
@@ -44,48 +72,51 @@ static int process_commands(const Command *const commands, const size_t commands
    return 0;
 }
 
-static const Command* get_commands(const char *const binfile_path, size_t *const p_commands_number)
+static void destruct_cpu(CPU *const p_CPU)
 {
-   dead(binfile_path);
-   dead(p_commands_number);
+   dead(p_CPU);
    
-   FILE          *binfile         = nullptr;
-   size_t         commands_number = 0;
-   const Command *commands        = nullptr;
+   stack_destroy(&p_CPU->CALLSTACK);
+   stack_destroy(&p_CPU->STACK);
    
-   binfile = fopen(binfile_path, "rb");
-   
-   dead(binfile);
-   
-   fread(&commands_number, sizeof(size_t), 1, binfile);
-   
-   commands = (Command *)calloc(commands_number, sizeof(Command));
-   
-   fread((void *)commands, sizeof(Command), commands_number, binfile);
-   fclose(binfile);
-   
-   *p_commands_number = commands_number;
-   
-   return commands;
+   free(p_CPU->VRAM);
+   free(p_CPU->RAM);
+   free(p_CPU->REGISTERS);
+   free(p_CPU->DARK_REGISTERS);
 }
 
-void cpu(const char *const binfile_path)
+static void construct_cpu(CPU *const p_CPU)
 {
-   size_t               commands_number  = 0;
-   const Command *const commands         = get_commands(binfile_path, &commands_number);
+   dead(p_CPU);
    
-   stack_debug(&STACK);
-   stack_debug(&CALLSTACK);
+   p_CPU->DARK_REGISTERS = (double *)calloc(DARK_REGISTERS_NUMBER, sizeof(double));
+   p_CPU->REGISTERS      = (double *)calloc(REGISTERS_NUMBER,      sizeof(double));
+   p_CPU->RAM            = (double *)calloc(RAM_SIZE,              sizeof(double));
+   p_CPU->VRAM           = (char   *)calloc(VRAM_SIZE,             sizeof(char));
    
-   stack_init(&STACK, 2);
-   stack_init(&CALLSTACK, 2);
+   dead(p_CPU->DARK_REGISTERS);
+   dead(p_CPU->REGISTERS);
+   dead(p_CPU->RAM);
+   dead(p_CPU->VRAM);
    
-   process_commands(commands, commands_number);
+   stack_debug(&p_CPU->STACK);
+   stack_debug(&p_CPU->CALLSTACK);
    
-//   stack_info(&STACK);
-//   stack_info(&CALLSTACK);
+   stack_init(&p_CPU->STACK,     2);
+   stack_init(&p_CPU->CALLSTACK, 2);
+}
+
+void processor(const char *const binfile_path)
+{
+   CPU      cpu             = {};
+   size_t   commands_number = 0;
+   Command *commands        = nullptr;
+   
+   construct_cpu(&cpu);
+   
+   get_commands(binfile_path, &commands, &commands_number);
+   process_commands(&cpu, commands, commands_number);
    
    free((void *)commands);
-   stack_destroy(&STACK);
-   stack_destroy(&CALLSTACK);
+   destruct_cpu(&cpu);
 }

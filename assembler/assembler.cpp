@@ -43,7 +43,7 @@ static void assembler_log()
       
       fprintf(assembler_logfile,
               "%-10s %s\n"
-              "%-10lg %-10lg ram: %-d register: %-d\n"
+              "%-10d %-10lg ram: %-d register: %-d\n"
               "----------------------------------------\n",
               commands_lexemes[j].command_name, commands_lexemes[j].argument_string,
               commands[i].key, commands[i].argument, commands[i].is_ram, commands[i].is_register);
@@ -71,13 +71,13 @@ static void write_binfile(const char binfile_path[])
 {
    FILE *const binfile = fopen(binfile_path, "wb");
    
-   fwrite(&commands_number, sizeof(size_t),  1,               binfile);
-   fwrite(commands,         sizeof(Command), commands_number, binfile);
+   fwrite(&commands_number, sizeof(size_t), 1, binfile);
+   fwrite(commands, sizeof(Command), commands_number, binfile);
    
    fclose(binfile);
 }
 
-void assembly(const char *const asmfile_path, const char *const binfile_path)
+void assembler(const char *const asmfile_path, const char *const binfile_path)
 {
    dead(asmfile_path);
    dead(binfile_path);

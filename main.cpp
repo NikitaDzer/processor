@@ -6,11 +6,11 @@
 
 int main()
 {
-   const char asmfile_path[]  = "../examples/factorial";
+   const char asmfile_path[] = "../examples/factorial"; //! TODO: command args
    const char binfile_path[] = "../binary";
    
-   assembly(asmfile_path, binfile_path);
-   cpu(binfile_path);
+   assembler(asmfile_path, binfile_path);
+   processor(binfile_path);
    
    return 0;
 }

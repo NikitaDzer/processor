@@ -1,0 +1,127 @@
+call main
+hlt
+
+main:
+    in
+    in
+    in
+
+    pop rcx
+    pop rbx
+    pop rax
+
+    call quadratic
+    ret
+
+
+quadratic:
+    push rax
+    push 0
+    je   linear
+
+    push 4
+    push rax
+    push rcx
+    mul
+    mul
+
+    push rbx
+    push rbx
+    mul
+    sub
+
+    pop  rdx
+    push rdx
+
+    push 0
+    ja negative
+
+    push rdx
+    push 0
+    je   dzero
+
+    push 2
+    push rax
+    mul
+    pop  rax
+
+    push rdx
+    sqrt
+    pop  rdx
+
+    push rax
+    push rdx
+    push rbx
+    push 0
+    sub
+    sum
+    div
+
+    push rax
+    push rdx
+    push rbx
+    push 0
+    sub
+    sub
+    div
+
+    push 2
+
+    out
+    out
+    out
+
+    hlt
+
+
+linear:
+    push rbx
+    push 0
+    je   a_b_zero
+
+    push rbx
+    push rcx
+    push 0
+    sub
+    div
+    push 1
+
+    out
+    out
+    hlt
+
+
+negative:
+    push 0
+    out
+    hlt
+
+dzero:
+    push 2
+    push rax
+    mul
+
+    push rbx
+    push 0
+    div
+
+    push 1
+    out
+    out
+    hlt
+
+
+a_b_zero:
+    push rcx
+    push 0
+    je   a_b_c_zero
+
+    push 0
+    out
+    hlt
+
+
+a_b_c_zero:
+    push -1
+    out
+    hlt
