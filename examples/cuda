@@ -1,12 +1,22 @@
-push '>'
+in
+in
+pop  rbx
 pop  rax
 
-push '<'
-pop  [rax]
+loop:
+    push rax
+    push 0
+    pix  rax
 
-push 0
-push 0
-pix  [rax]
+    push rax
+    push 1
+    sum
+
+    pop  rax
+    push rax
+    push rbx
+    ja   loop
+
 
 show
 
