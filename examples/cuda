@@ -1,0 +1,13 @@
+push '>'
+pop  rax
+
+push '<'
+pop  [rax]
+
+push 0
+push 0
+pix  [rax]
+
+show
+
+hlt

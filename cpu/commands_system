@@ -132,3 +132,38 @@ DEFINE_COMMAND(div, 15, 0, {
 
     stack_push(&p_cpu->STACK, p_cpu->DARK_REGISTERS[0] / p_cpu->DARK_REGISTERS[1]);
 })
+
+
+DEFINE_COMMAND(pix, 16, 1, {
+
+   if (p_currentCommand->is_ram)
+   {
+      if (p_currentCommand->is_register)
+         p_cpu->DARK_REGISTERS[2] = p_cpu->RAM[ (size_t)p_cpu->REGISTERS[ (size_t)p_currentCommand->argument ] ];
+      else
+         p_cpu->DARK_REGISTERS[2] = p_cpu->RAM[ (size_t)p_currentCommand->argument ];
+   }
+   else if (p_currentCommand->is_register)
+   {
+      p_cpu->DARK_REGISTERS[2] = p_cpu->REGISTERS[ (size_t)p_currentCommand->argument ];
+   }
+   else
+      p_cpu->DARK_REGISTERS[2] = p_currentCommand->argument;
+
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS + 1);    // axis Y
+    stack_pop(&p_cpu->STACK, p_cpu->DARK_REGISTERS);        // axis X
+
+    p_cpu->VRAM[(size_t)p_cpu->DARK_REGISTERS[0] + (size_t)p_cpu->DARK_REGISTERS[1] * WINDOW_WIDTH]
+                = (char)p_cpu->DARK_REGISTERS[2];
+})
+
+
+DEFINE_COMMAND(show, 17, 0, {
+    for (size_t i = 0; i < WINDOW_HEIGHT; i++)
+    {
+        for (size_t j = 0; j < WINDOW_WIDTH; j++)
+            printf("%c", p_cpu->VRAM[j + i * WINDOW_WIDTH]);
+
+        printf("\n");
+    }
+})

@@ -15,7 +15,8 @@ static inline bool is_command_name_char(const char ch)
 
 static inline bool is_command_argument_char(const char ch)
 {
-   return isalnum(ch) || ch == '-' ||  ch == ' ' || ch == '.' || ch == '_' || ch == '[' || ch == ']';
+   return ch != '\n' && ch != '\r' && ch != ',' && ch != '\0';
+//   return isalnum(ch) || ch == '\'' || ch == '-' ||  ch == ' ' || ch == '.' || ch == '_' || ch == '[' || ch == ']';
 }
 
 static inline const char* skip_gap(const char *const start)
@@ -55,7 +56,7 @@ static const char* write_command_argument(const char *const start, CommandLexeme
       iterator += 1;
    }
    
-   size_t shift = 0;
+   size_t shift         = 0;
    size_t argument_size = 0;
    
    while (*(iterator - shift) == ' ')

@@ -4,6 +4,7 @@
 
 #include <cstring>
 #include <cmath>
+#include "../include/global.h"
 #include "../include/cpu.h"
 #include "stack/include/stack.h"
 

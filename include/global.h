@@ -15,9 +15,12 @@
 
 typedef int_fast8_t error_t;
 
-const size_t DARK_REGISTERS_NUMBER = 2;
+const size_t WINDOW_HEIGHT         = 30;
+const size_t WINDOW_WIDTH          = 30;
+
+const size_t DARK_REGISTERS_NUMBER = 4;
 const size_t REGISTERS_NUMBER      = 16;
-const size_t VRAM_SIZE             = 2048;
+const size_t VRAM_SIZE             = WINDOW_WIDTH * WINDOW_HEIGHT; // == 900
 const size_t RAM_SIZE              = 2048;
 
 const size_t COMMAND_NAME_MAX_SIZE = 64;
