@@ -1,13 +1,7 @@
-Time: 12:56:27
+Time: 1:17:24
 ========================================
-in         (null)
-5          0          ram: 0 register: 0
-----------------------------------------
-in         (null)
-5          0          ram: 0 register: 0
-----------------------------------------
-pop        rbx
-2          1          ram: 0 register: 1
+multin     (null)
+21         0          ram: 0 register: 0
 ----------------------------------------
 pop        rax
 2          0          ram: 0 register: 1
@@ -18,11 +12,17 @@ push       rax
 push       0
 1          0          ram: 0 register: 0
 ----------------------------------------
-pix        rax
-16         0          ram: 0 register: 1
+je         end
+8          15         ram: 0 register: 0
 ----------------------------------------
-push       rax
-1          0          ram: 0 register: 1
+push       0
+1          0          ram: 0 register: 0
+----------------------------------------
+sum        (null)
+3          0          ram: 0 register: 0
+----------------------------------------
+push       rbx
+1          1          ram: 0 register: 1
 ----------------------------------------
 push       1
 1          1          ram: 0 register: 0
@@ -30,20 +30,20 @@ push       1
 sum        (null)
 3          0          ram: 0 register: 0
 ----------------------------------------
-pop        rax
-2          0          ram: 0 register: 1
-----------------------------------------
-push       rax
-1          0          ram: 0 register: 1
+pop        rbx
+2          1          ram: 0 register: 1
 ----------------------------------------
 push       rbx
 1          1          ram: 0 register: 1
 ----------------------------------------
-ja         loop
-9          4          ram: 0 register: 0
+push       rax
+1          0          ram: 0 register: 1
 ----------------------------------------
-show       (null)
-17         0          ram: 0 register: 0
+ja         loop
+9          6          ram: 0 register: 0
+----------------------------------------
+out        (null)
+6          0          ram: 0 register: 0
 ----------------------------------------
 hlt        (null)
 10         0          ram: 0 register: 0

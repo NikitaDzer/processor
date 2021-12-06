@@ -22,7 +22,7 @@ static long get_file_size(FILE* const file)
    file_size = ftell(file);
    fseek(file, initialPosition, SEEK_SET);
    
-   return file_size;
+   return file_size - 1;
 }
 
 static void assembler_log()
@@ -54,12 +54,18 @@ static void assembler_log()
 
 static char* get_asmcode(const char asmfile_path[], long *const p_asmcode_size)
 {
+   dead(asmfile_path);
+   dead(p_asmcode_size);
+   
    FILE *asmfile = nullptr;
    char *asmcode = nullptr;
    
    asmfile        = fopen(asmfile_path, "r");
+   dead(asmfile);
+   
   *p_asmcode_size = get_file_size(asmfile);
    asmcode        = (char *)calloc(*p_asmcode_size, sizeof(char));
+   dead(asmcode);
    
    fread(asmcode, sizeof(char), *p_asmcode_size, asmfile);
    fclose(asmfile);
@@ -81,7 +87,7 @@ void assembler(const char *const asmfile_path, const char *const binfile_path)
 {
    dead(asmfile_path);
    dead(binfile_path);
-
+   
    long        asmcode_size = 0;
    char *const asmcode      = get_asmcode(asmfile_path, &asmcode_size);
    
@@ -89,7 +95,6 @@ void assembler(const char *const asmfile_path, const char *const binfile_path)
    commands_number         = parse(commands_lexemes, commands_lexemes_number, &commands);
    
    write_binfile(binfile_path);
-   
    assembler_log();
    
    for (size_t i = 0; i < commands_number; i++)

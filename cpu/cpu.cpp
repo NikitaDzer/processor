@@ -99,8 +99,8 @@ static void construct_cpu(CPU *const p_CPU)
    dead(p_CPU->RAM);
    dead(p_CPU->VRAM);
    
-   stack_debug(&p_CPU->STACK);
-   stack_debug(&p_CPU->CALLSTACK);
+//   stack_debug(&p_CPU->STACK);
+//   stack_debug(&p_CPU->CALLSTACK);
    
    stack_init(&p_CPU->STACK,     2);
    stack_init(&p_CPU->CALLSTACK, 2);
